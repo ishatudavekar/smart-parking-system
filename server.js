@@ -167,21 +167,38 @@ app.post('/entry', requireAuth, (req, res) => {
 
 // Exit
 app.get('/exit', requireAuth, (req, res) => {
-    res.render('exit', { error: null, success: null });
+    res.render('exit', { error: null, success: null, receipt: null });
 });
 
 app.post('/exit', requireAuth, (req, res) => {
     const vehicle_no = req.body.vehicle_no.trim();
-    if (!vehicle_no) return res.render('exit', { error: 'Vehicle number required.', success: null });
+    if (!vehicle_no) return res.render('exit', { error: 'Vehicle number required.', success: null, receipt: null });
 
-    db.get("SELECT id, slot_id FROM vehicles WHERE vehicle_no = ? AND exit_time IS NULL", [vehicle_no], (err, vehicle) => {
-        if (!vehicle) return res.render('exit', { error: 'Vehicle not found or already exited.', success: null });
+    db.get("SELECT id, slot_id, entry_time FROM vehicles WHERE vehicle_no = ? AND exit_time IS NULL", [vehicle_no], (err, vehicle) => {
+        if (!vehicle) return res.render('exit', { error: 'Vehicle not found or already exited.', success: null, receipt: null });
 
         db.run("UPDATE vehicles SET exit_time = CURRENT_TIMESTAMP WHERE id = ?", [vehicle.id], (err) => {
-            if (err) return res.render('exit', { error: 'Error updating exit time.', success: null });
+            if (err) return res.render('exit', { error: 'Error updating exit time.', success: null, receipt: null });
 
             db.run("UPDATE slots SET status='available' WHERE id=?", [vehicle.slot_id], (err) => {
-                res.render('exit', { error: null, success: `Vehicle exited successfully. Slot ${vehicle.slot_id} is free.` });
+                db.get("SELECT entry_time, exit_time FROM vehicles WHERE id = ?", [vehicle.id], (err, v) => {
+                    const entry = new Date(v.entry_time + 'Z');
+                    const exit = new Date(v.exit_time + 'Z');
+                    let diffMs = exit - entry;
+                    if (diffMs < 0) diffMs = 0;
+                    const diffHours = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60))); // Minimum 1 hour charge
+                    const cost = diffHours * 5;
+
+                    const receipt = {
+                        vehicle_no,
+                        entry_time: entry.toLocaleString(),
+                        exit_time: exit.toLocaleString(),
+                        duration: `${diffHours} hour(s)`,
+                        cost: `$${cost.toFixed(2)}`
+                    };
+
+                    res.render('exit', { error: null, success: `Vehicle exited successfully. Slot ${vehicle.slot_id} is free.`, receipt });
+                });
             });
         });
     });
@@ -192,7 +209,6 @@ const server = app.listen(PORT, () => {
     console.log(`Smart Parking running on http://localhost:${PORT}`);
 });
 
-module.exports = app;
 server.on('error', (e) => {
     console.error('Server error:', e);
 });
