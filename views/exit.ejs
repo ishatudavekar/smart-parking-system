@@ -1,248 +1,280 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Exit Vehicle - Smart Parking</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Exit - Luxury Parking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Outfit', sans-serif;
-      background: radial-gradient(circle at center, #2e1065, #0f172a);
-      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      background-color: #000;
+      background-image: url('/images/hypercar.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #fff;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       min-height: 100vh;
       overflow-y: auto;
-      padding: 40px 20px;
       box-sizing: border-box;
+      padding: 40px 10% 40px 20px;
     }
 
-    /* Animated background elements */
-    .bg-orb {
+    .overlay {
       position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      z-index: -1;
-      animation: float 10s infinite alternate ease-in-out;
-    }
-    .orb-1 {
-      width: 400px; height: 400px;
-      background: rgba(239, 68, 68, 0.1);
-      top: -100px; left: -100px;
-    }
-    .orb-2 {
-      width: 300px; height: 300px;
-      background: rgba(217, 70, 239, 0.1);
-      bottom: -150px; right: -100px;
-      animation-delay: -5s;
-    }
-    @keyframes float {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(30px) scale(1.1); }
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%);
+      z-index: 0;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      padding: 50px 40px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      z-index: 1;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(25px);
+      padding: 60px 50px;
+      border: 1px solid rgba(255, 40, 0, 0.3);
       width: 100%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease;
+      max-width: 420px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 40, 0, 0.05);
+      animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    .container:hover {
-      border-color: rgba(255, 255, 255, 0.1);
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
       margin-top: 0;
-      margin-bottom: 30px;
-      background: linear-gradient(135deg, #f87171, #d946ef);
-      -webkit-background-clip: text;
-      color: transparent;
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      margin-bottom: 40px;
+      color: #fff;
+      font-size: 36px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #ff2800;
+      padding-bottom: 15px;
+      display: inline-block;
     }
 
     .form-group {
-      margin-bottom: 24px;
+      margin-bottom: 30px;
       text-align: left;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #94a3b8;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.2);
-      color: #f8fafc;
-      font-family: 'Outfit', sans-serif;
-      font-size: 15px;
+      padding: 15px 0;
+      border: none;
+      border-bottom: 1px solid #444;
+      background: transparent;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
       box-sizing: border-box;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      text-transform: uppercase;
     }
 
     input:focus {
       outline: none;
-      border-color: #f87171;
-      background: rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+      border-bottom-color: #ff2800;
+      box-shadow: 0 10px 10px -10px rgba(255, 40, 0, 0.3);
+    }
+
+    input::placeholder {
+      color: #333;
+      text-transform: none;
     }
 
     .btn {
       width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
+      padding: 18px;
+      background: transparent;
+      border: 1px solid #ff2800;
+      color: #ff2800;
       cursor: pointer;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-      font-size: 16px;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      color: white;
-      background: linear-gradient(135deg, #ef4444, #db2777);
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       margin-top: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #ff2800;
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+      color: #000;
+      font-weight: 600;
     }
 
-    .btn:active {
-      transform: translateY(0);
+    .btn:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     .message {
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-      font-size: 14px;
+      padding: 15px;
+      margin-bottom: 30px;
+      font-size: 13px;
       font-weight: 500;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
+      letter-spacing: 0.5px;
+      border-left: 3px solid transparent;
     }
 
     .message.error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
+      background: rgba(255, 40, 0, 0.1);
+      border-left-color: #ff2800;
+      color: #ff8888;
     }
 
     .message.success {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      color: #86efac;
+      background: rgba(255, 255, 255, 0.1);
+      border-left-color: #fff;
+      color: #ddd;
     }
 
     .back-link {
       display: inline-block;
-      color: #94a3b8;
+      color: #666;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
     }
 
     .back-link:hover {
-      color: #f8fafc;
-      transform: translateX(-3px);
+      color: #fff;
+      border-bottom-color: #fff;
     }
 
-    /* Receipt Styling */
+    /* Luxury Receipt Styling */
     .receipt {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 24px;
-      border-radius: 16px;
-      margin-bottom: 24px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 30px;
+      border: 1px solid #333;
+      margin-bottom: 30px;
       text-align: left;
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .receipt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, #ff2800, transparent);
     }
 
     .receipt h3 {
       margin-top: 0;
-      text-align: center;
-      color: #c084fc;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
+      text-align: left;
+      color: #fff;
+      font-weight: 300;
+      letter-spacing: 3px;
+      margin-bottom: 25px;
       text-transform: uppercase;
-      font-size: 16px;
+      font-size: 14px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
     }
 
     .receipt-row {
       display: flex;
       justify-content: space-between;
-      margin: 8px 0;
-      font-size: 14px;
+      margin: 12px 0;
+      font-size: 12px;
     }
 
     .receipt-label {
-      color: #94a3b8;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .receipt-value {
-      color: #f8fafc;
+      color: #fff;
       font-weight: 500;
+      font-family: monospace;
+      font-size: 13px;
     }
 
     .receipt .cost {
-      font-size: 20px;
-      color: #4ade80;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 20px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-size: 24px;
+      color: #ff2800;
+      font-weight: 300;
+      text-align: right;
+      margin-top: 25px;
+      border-top: 1px solid #333;
       padding-top: 20px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      gap: 5px;
     }
 
     .receipt .cost span:first-child {
-      font-size: 12px;
-      color: #94a3b8;
-      font-weight: 500;
+      font-size: 11px;
+      color: #888;
+      font-weight: 600;
       text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .brand {
+      position: fixed;
+      top: 40px;
+      left: 50px;
+      z-index: 2;
+      color: #fff;
+      font-weight: 300;
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .brand span {
+      color: #ff2800;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
 
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
+<div class="overlay"></div>
+<div class="brand">Scuderia <span>Parking</span></div>
 
 <div class="container">
-  <img src="/images/car.png" alt="3D Car" style="width: 150px; margin-top: -90px; margin-bottom: 10px; filter: drop-shadow(0 15px 25px rgba(239, 68, 68, 0.3)); animation: float 6s infinite alternate ease-in-out;">
-  <h2>- Process Exit</h2>
+  <h2>Process Exit</h2>
 
   <% if (error) { %>
     <div class="message error"><%= error %></div>
@@ -254,25 +286,25 @@
 
   <% if (typeof receipt !== 'undefined' && receipt) { %>
     <div class="receipt">
-      <h3>Parking Receipt</h3>
+      <h3>Invoice</h3>
       <div class="receipt-row">
-        <span class="receipt-label">Vehicle No:</span>
+        <span class="receipt-label">License Plate</span>
         <span class="receipt-value"><%= receipt.vehicle_no %></span>
       </div>
       <div class="receipt-row">
-        <span class="receipt-label">Entry Time:</span>
+        <span class="receipt-label">Entry Log</span>
         <span class="receipt-value"><%= receipt.entry_time %></span>
       </div>
       <div class="receipt-row">
-        <span class="receipt-label">Exit Time:</span>
+        <span class="receipt-label">Exit Log</span>
         <span class="receipt-value"><%= receipt.exit_time %></span>
       </div>
       <div class="receipt-row">
-        <span class="receipt-label">Duration:</span>
+        <span class="receipt-label">Duration</span>
         <span class="receipt-value"><%= receipt.duration %></span>
       </div>
       <div class="cost">
-        <span>Total Amount Due</span>
+        <span>Total Due</span>
         <span><%= receipt.cost %></span>
       </div>
     </div>
@@ -280,13 +312,13 @@
 
   <form method="POST" action="/exit">
     <div class="form-group">
-      <label for="vehicle_no">Vehicle Number Plate</label>
-      <input type="text" id="vehicle_no" name="vehicle_no" required placeholder="e.g. MH-12-AB-1234" autocomplete="off">
+      <label for="vehicle_no">License Plate</label>
+      <input type="text" id="vehicle_no" name="vehicle_no" required placeholder="SF90-STRADALE" autocomplete="off">
     </div>
-    <button type="submit" class="btn">Process Exit</button>
+    <button type="submit" class="btn">Calculate Invoice</button>
   </form>
 
-  <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+  <a href="/dashboard" class="back-link">Return to Command Center</a>
 </div>
 
 </body>
