@@ -7,12 +7,12 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #000;
+      background-color: #f5f5f7;
       background-image: url('/images/hypercar.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      color: #fff;
+      color: #1d1d1f;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -25,20 +25,20 @@
     .overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.9) 100%);
+      background: linear-gradient(90deg, rgba(245,245,247,0.9) 0%, rgba(245,245,247,0.3) 50%, rgba(245,245,247,0.95) 100%);
       z-index: 0;
     }
 
     .container {
       position: relative;
       z-index: 1;
-      background: rgba(10, 10, 10, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(25px);
       padding: 60px 50px;
-      border: 1px solid rgba(0, 229, 255, 0.3);
+      border: 1px solid rgba(197, 160, 89, 0.3);
       width: 100%;
       max-width: 420px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0, 229, 255, 0.05);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.5);
       animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
       transform: translateY(20px);
@@ -51,12 +51,12 @@
     h2 {
       margin-top: 0;
       margin-bottom: 40px;
-      color: #fff;
+      color: #1d1d1f;
       font-size: 36px;
       font-weight: 300;
       letter-spacing: 2px;
       text-transform: uppercase;
-      border-bottom: 2px solid #00e5ff;
+      border-bottom: 2px solid #c5a059;
       padding-bottom: 15px;
       display: inline-block;
     }
@@ -80,9 +80,9 @@
       width: 100%;
       padding: 15px 0;
       border: none;
-      border-bottom: 1px solid #444;
+      border-bottom: 1px solid #ddd;
       background: transparent;
-      color: #fff;
+      color: #1d1d1f;
       font-family: 'Inter', sans-serif;
       font-size: 16px;
       box-sizing: border-box;
@@ -92,12 +92,12 @@
 
     input:focus {
       outline: none;
-      border-bottom-color: #00e5ff;
-      box-shadow: 0 10px 10px -10px rgba(0, 229, 255, 0.3);
+      border-bottom-color: #c5a059;
+      box-shadow: 0 10px 10px -10px rgba(197, 160, 89, 0.2);
     }
 
     input::placeholder {
-      color: #333;
+      color: #aaa;
       text-transform: none;
     }
 
@@ -105,10 +105,10 @@
       width: 100%;
       padding: 18px;
       background: transparent;
-      border: 1px solid #00e5ff;
-      color: #00e5ff;
+      border: 1px solid #c5a059;
+      color: #c5a059;
       cursor: pointer;
-      font-weight: 400;
+      font-weight: 500;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       text-transform: uppercase;
@@ -124,7 +124,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: #00e5ff;
+      background: #c5a059;
       z-index: -1;
       transform: scaleX(0);
       transform-origin: right;
@@ -132,7 +132,7 @@
     }
 
     .btn:hover {
-      color: #000;
+      color: #fff;
       font-weight: 600;
     }
 
@@ -151,20 +151,20 @@
     }
 
     .message.error {
-      background: rgba(0, 229, 255, 0.1);
-      border-left-color: #00e5ff;
-      color: #ff8888;
+      background: rgba(255, 40, 0, 0.05);
+      border-left-color: #ff2800;
+      color: #d00;
     }
 
     .message.success {
-      background: rgba(255, 255, 255, 0.1);
-      border-left-color: #fff;
-      color: #ddd;
+      background: rgba(197, 160, 89, 0.1);
+      border-left-color: #c5a059;
+      color: #c5a059;
     }
 
     .back-link {
       display: inline-block;
-      color: #666;
+      color: #888;
       text-decoration: none;
       font-size: 11px;
       font-weight: 600;
@@ -176,8 +176,8 @@
     }
 
     .back-link:hover {
-      color: #fff;
-      border-bottom-color: #fff;
+      color: #1d1d1f;
+      border-bottom-color: #1d1d1f;
     }
 
     .brand {
@@ -185,14 +185,14 @@
       top: 40px;
       left: 50px;
       z-index: 2;
-      color: #fff;
+      color: #1d1d1f;
       font-weight: 300;
       font-size: 24px;
       letter-spacing: 4px;
       text-transform: uppercase;
     }
     .brand span {
-      color: #00e5ff;
+      color: #c5a059;
       font-weight: 700;
     }
   </style>
