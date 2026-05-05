@@ -7,6 +7,7 @@ const app = express();
 
 const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
+    ssl: process.env.POSTGRES_URL ? { rejectUnauthorized: false } : false
 });
 
 // Setup Middleware
@@ -58,12 +59,17 @@ const initDb = async () => {
     }
 };
 
-// Initialize DB if we have a connection string
-if (process.env.POSTGRES_URL) {
+// Initialize DB if we have a connection string locally
+if (process.env.POSTGRES_URL && process.env.NODE_ENV !== 'production') {
     initDb();
 } else {
     console.warn("WARNING: POSTGRES_URL environment variable is not set. Database not initialized.");
 }
+
+app.get('/setup', async (req, res) => {
+    await initDb();
+    res.send("Database initialized successfully! You can now go to /login.");
+});
 
 // Auth Middleware
 const requireAuth = (req, res, next) => {
