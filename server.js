@@ -187,10 +187,12 @@ app.post('/exit', requireAuth, (req, res) => {
     });
 });
 
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 const server = app.listen(PORT, () => {
     console.log(`Smart Parking running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
 server.on('error', (e) => {
     console.error('Server error:', e);
 });
