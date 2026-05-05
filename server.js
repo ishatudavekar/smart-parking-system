@@ -11,6 +11,7 @@ const pool = new Pool({
 });
 
 // Setup Middleware
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
@@ -226,14 +227,14 @@ app.post('/exit', requireAuth, async (req, res) => {
         let diffMs = exit - entry;
         if (diffMs < 0) diffMs = 0;
         const diffHours = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60))); // Minimum 1 hour charge
-        const cost = diffHours * 5;
+        const cost = diffHours * 50; // Change to 50 Rs per hour
 
         const receipt = {
             vehicle_no,
             entry_time: entry.toLocaleString(),
             exit_time: exit.toLocaleString(),
             duration: `${diffHours} hour(s)`,
-            cost: `$${cost.toFixed(2)}`
+            cost: `₹${cost.toFixed(2)}`
         };
 
         res.render('exit', { error: null, success: `Vehicle exited successfully. Slot ${vehicle.slot_id} is free.`, receipt });
