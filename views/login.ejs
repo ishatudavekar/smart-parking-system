@@ -2,42 +2,74 @@
 <html>
 <head>
   <title>Login - Smart Parking</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #000;
-      color: white;
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+      color: #f8fafc;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Animated background elements */
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+    .orb-1 {
+      width: 300px; height: 300px;
+      background: rgba(56, 189, 248, 0.15);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: rgba(168, 85, 247, 0.15);
+      bottom: -150px; right: -100px;
+      animation-delay: -5s;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(30px) scale(1.1); }
     }
 
     .container {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(15px);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      padding: 50px 40px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
-      max-width: 350px;
+      max-width: 380px;
       text-align: center;
-      box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      border-color: rgba(255, 255, 255, 0.1);
     }
 
     h2 {
       margin-top: 0;
       margin-bottom: 30px;
-      background: linear-gradient(45deg, #0ea5e9, #9333ea);
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
       -webkit-background-clip: text;
       color: transparent;
-      font-size: 28px;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -45,62 +77,98 @@
       display: block;
       margin-bottom: 8px;
       font-size: 14px;
-      color: #ccc;
+      font-weight: 500;
+      color: #94a3b8;
     }
 
-    input[type="email"], input[type="password"] {
+    input[type="email"], input[type="password"], input[type="text"] {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(0,0,0,0.2);
-      color: white;
-      font-family: 'Poppins', sans-serif;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      color: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
       box-sizing: border-box;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
 
-    input[type="email"]:focus, input[type="password"]:focus {
+    input:focus {
       outline: none;
-      border-color: #0ea5e9;
-      box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+      border-color: #38bdf8;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
     }
 
     .btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
-      font-weight: 500;
-      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       font-size: 16px;
-      transition: 0.3s;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
       color: white;
-      background: linear-gradient(45deg, #0ea5e9, #9333ea);
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
       margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
     }
 
     .btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .message {
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 24px;
       font-size: 14px;
+      font-weight: 500;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .message.error {
       background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+
+    .footer-link {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .footer-link a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link a:hover {
+      color: #7dd3fc;
     }
   </style>
 </head>
 <body>
+
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
 
 <div class="container">
   <h2>Smart Parking</h2>
@@ -112,7 +180,7 @@
   <form method="POST" action="/login">
     <div class="form-group">
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required placeholder="admin@example.com">
+      <input type="email" id="email" name="email" required placeholder="name@company.com">
     </div>
     
     <div class="form-group">
@@ -120,11 +188,10 @@
       <input type="password" id="password" name="password" required placeholder="••••••••">
     </div>
 
-    <button type="submit" class="btn">Login</button>
+    <button type="submit" class="btn">Sign In</button>
     
-    <div style="margin-top: 15px; text-align: center; font-size: 14px;">
-      <span style="color: #ccc;">Don't have an account?</span> 
-      <a href="/register" style="color: #0ea5e9; text-decoration: none;">Sign Up</a>
+    <div class="footer-link">
+      Don't have an account? <a href="/register">Create one</a>
     </div>
   </form>
 </div>

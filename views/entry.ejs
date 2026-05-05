@@ -1,42 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Vehicle - Smart Parking</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <title>Entry Vehicle - Smart Parking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #000;
-      color: white;
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at center, #1e1b4b, #0f172a);
+      color: #f8fafc;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Animated background elements */
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(34, 197, 94, 0.1);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(56, 189, 248, 0.1);
+      bottom: -150px; right: -100px;
+      animation-delay: -5s;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(30px) scale(1.1); }
     }
 
     .container {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(15px);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      padding: 50px 40px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
       max-width: 400px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      border-color: rgba(255, 255, 255, 0.1);
     }
 
     h2 {
       margin-top: 0;
-      margin-bottom: 20px;
-      background: linear-gradient(45deg, #22c55e, #16a34a);
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #4ade80, #38bdf8);
       -webkit-background-clip: text;
       color: transparent;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -44,83 +77,105 @@
       display: block;
       margin-bottom: 8px;
       font-size: 14px;
-      color: #ccc;
+      font-weight: 500;
+      color: #94a3b8;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(0,0,0,0.2);
-      color: white;
-      font-family: 'Poppins', sans-serif;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      color: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
       box-sizing: border-box;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
 
-    input[type="text"]:focus {
+    input:focus {
       outline: none;
-      border-color: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+      border-color: #4ade80;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
     }
 
     .btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
-      font-weight: 500;
-      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       font-size: 16px;
-      transition: 0.3s;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
       color: white;
-      background: linear-gradient(45deg, #22c55e, #16a34a);
-      margin-bottom: 15px;
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      margin-top: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
     }
 
     .btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
     }
 
-    .back-link {
-      color: #0ea5e9;
-      text-decoration: none;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-      text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+    .btn:active {
+      transform: translateY(0);
     }
 
     .message {
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 24px;
       font-size: 14px;
+      font-weight: 500;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .message.error {
       background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
     }
 
     .message.success {
       background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #f8fafc;
+      transform: translateX(-3px);
     }
   </style>
 </head>
 <body>
 
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+
 <div class="container">
-  <h2>+ Add Vehicle</h2>
+  <h2>+ Park Vehicle</h2>
 
   <% if (error) { %>
     <div class="message error"><%= error %></div>
@@ -132,10 +187,10 @@
 
   <form method="POST" action="/entry">
     <div class="form-group">
-      <label for="vehicle_no">Vehicle Number</label>
-      <input type="text" id="vehicle_no" name="vehicle_no" required placeholder="e.g. AB-12-CD-3456" autocomplete="off">
+      <label for="vehicle_no">Vehicle Number Plate</label>
+      <input type="text" id="vehicle_no" name="vehicle_no" required placeholder="e.g. MH-12-AB-1234" autocomplete="off">
     </div>
-    <button type="submit" class="btn">Park Vehicle</button>
+    <button type="submit" class="btn">Register Entry</button>
   </form>
 
   <a href="/dashboard" class="back-link">← Back to Dashboard</a>
