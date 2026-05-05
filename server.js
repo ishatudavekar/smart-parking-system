@@ -56,6 +56,7 @@ const initDb = async () => {
         console.log("Database initialized");
     } catch (err) {
         console.error("Database initialization error:", err);
+        throw err;
     }
 };
 
@@ -67,8 +68,12 @@ if (process.env.POSTGRES_URL && process.env.NODE_ENV !== 'production') {
 }
 
 app.get('/setup', async (req, res) => {
-    await initDb();
-    res.send("Database initialized successfully! You can now go to /login.");
+    try {
+        await initDb();
+        res.send("Database initialized successfully! You can now go to /login.");
+    } catch (err) {
+        res.send("Database setup failed: " + err.message);
+    }
 });
 
 // Auth Middleware
@@ -104,7 +109,7 @@ app.post('/login', async (req, res) => {
         res.redirect('/dashboard');
     } catch (err) {
         console.error(err);
-        res.render('login', { error: 'Server error' });
+        res.render('login', { error: 'Server error: ' + err.message });
     }
 });
 
