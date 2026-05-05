@@ -276,11 +276,11 @@
 <div class="container">
   <h2>Process Exit</h2>
 
-  <% if (error) { %>
+  <% if (typeof error !== 'undefined' && error) { %>
     <div class="message error"><%= error %></div>
   <% } %>
 
-  <% if (success) { %>
+  <% if (typeof success !== 'undefined' && success) { %>
     <div class="message success"><%= success %></div>
   <% } %>
 

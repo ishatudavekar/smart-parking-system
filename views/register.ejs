@@ -199,7 +199,7 @@
 <div class="container">
   <h2>Register</h2>
 
-  <% if (error) { %>
+  <% if (typeof error !== 'undefined' && error) { %>
     <div class="message error"><%= error %></div>
   <% } %>
 
